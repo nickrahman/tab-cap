@@ -1,4 +1,4 @@
-const MAX_TABS = 10;
+const MAX_TABS = 5;
 const OFFSCREEN_DOCUMENT_PATH = "offscreen.html";
 
 let creatingOffscreenDocument;

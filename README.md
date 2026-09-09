@@ -1,8 +1,8 @@
 # Tab Cap
 
-Tab Cap is a tiny, local-first Chrome extension that keeps you from opening more than 10 unpinned tabs across all browser windows.
+Tab Cap is a tiny, local-first Chrome extension that keeps you from opening more than 5 unpinned tabs across all browser windows.
 
-When you try to open tab 11, Tab Cap closes the new tab, briefly shows a small browser popup, and plays a short beep. Pinned tabs do not count toward the limit.
+When you try to open tab 6, Tab Cap closes the new tab, briefly shows a small browser popup, and plays a short beep. Pinned tabs do not count toward the limit.
 
 ## Install
 
