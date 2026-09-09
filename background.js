@@ -2,9 +2,10 @@ const MAX_TABS = 10;
 const OFFSCREEN_DOCUMENT_PATH = "offscreen.html";
 
 let creatingOffscreenDocument;
+let warningWindowId;
 
 chrome.tabs.onCreated.addListener(async (newTab) => {
-  const tabs = await chrome.tabs.query({});
+  const tabs = await chrome.tabs.query({ windowType: "normal" });
   const unpinnedTabs = tabs.filter((tab) => !tab.pinned);
 
   if (unpinnedTabs.length <= MAX_TABS || newTab.id === undefined) {
@@ -13,16 +14,43 @@ chrome.tabs.onCreated.addListener(async (newTab) => {
 
   await chrome.tabs.remove(newTab.id);
 
-  await chrome.notifications.create({
-    type: "basic",
-    iconUrl: "icon.png",
-    title: "Tab limit reached",
-    message: `You already have ${MAX_TABS} tabs open. Close one first.`
+  await Promise.allSettled([
+    showWarningPopup(),
+    playWarningSound()
+  ]);
+});
+
+chrome.windows.onRemoved.addListener((windowId) => {
+  if (windowId === warningWindowId) {
+    warningWindowId = undefined;
+  }
+});
+
+async function showWarningPopup() {
+  if (warningWindowId !== undefined) {
+    try {
+      await chrome.windows.update(warningWindowId, { focused: true });
+      return;
+    } catch {
+      warningWindowId = undefined;
+    }
+  }
+
+  const warningWindow = await chrome.windows.create({
+    url: chrome.runtime.getURL("warning.html"),
+    type: "popup",
+    focused: true,
+    width: 380,
+    height: 230
   });
 
+  warningWindowId = warningWindow?.id;
+}
+
+async function playWarningSound() {
   await ensureOffscreenDocument();
   await chrome.runtime.sendMessage({ target: "offscreen", type: "beep" });
-});
+}
 
 async function ensureOffscreenDocument() {
   const offscreenUrl = chrome.runtime.getURL(OFFSCREEN_DOCUMENT_PATH);

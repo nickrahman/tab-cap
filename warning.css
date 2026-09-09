@@ -1,0 +1,35 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: Canvas;
+  color: CanvasText;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 180px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+img {
+  flex: none;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+p {
+  margin: 0;
+  color: GrayText;
+  font-size: 16px;
+  line-height: 1.45;
+}
