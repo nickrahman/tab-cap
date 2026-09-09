@@ -25,8 +25,9 @@ Tab Cap runs entirely on your computer. It has no analytics, network requests, r
 It requests only these Chrome permissions:
 
 - `offscreen` to play the warning beep from a hidden local page.
+- `system.display` to create the warning popup in the center of the active display.
 
-The warning popup uses Chrome's built-in extension window API and does not require an additional permission.
+Neither permission provides access to page contents, URLs, or browsing history.
 
 The source is deliberately small enough to inspect yourself.
 
