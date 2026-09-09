@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Tab Cap",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Keep no more than 5 unpinned tabs open at once.",
   "minimum_chrome_version": "116",
   "permissions": [
